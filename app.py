@@ -113,7 +113,6 @@ def add_workout():
 
     if request.method == "POST":
         exercise = request.form["exercise"]
-        print(exercise)
 
     return render_template("add_workout.html")
 @app.route("/chest")
@@ -586,8 +585,6 @@ def exercise(exercise_name):
     session_id = request.args.get("session_id")
     muscle_group = request.args.get("muscle_group")
     exercise_id = request.args.get("exercise_id")
-    print("Session ID:", session_id)
-    print("Exercise ID:", exercise_id)
     if exercise_id is None:
                 conn = sqlite3.connect("fitness.db")
                 cursor = conn.cursor()
@@ -899,8 +896,6 @@ def finish_muscle():
     """, (session_id,))
 
     next_muscle = cursor.fetchone()
-    print("Current muscle:", muscle)
-    print("Next muscle:", next_muscle)
 
     conn.close()
 
@@ -912,7 +907,6 @@ def finish_muscle():
                 session_id=session_id
             )
         )
-    print("Redirecting to Workout Log")
     return redirect(url_for("workout_log"))
 @app.route("/calorie_tracker", methods=["GET", "POST"])
 def calorie_tracker():
@@ -924,7 +918,6 @@ def calorie_tracker():
     if request.method == "POST":
         print(request.form)
         action = request.form.get("action")
-        print("Action =", action)
 
         if action == "add_food":
 
@@ -991,8 +984,6 @@ def profile():
 
     user_id = session["user_id"]
 
-    print("Session user_id =", user_id)
-
     conn = sqlite3.connect("fitness.db")
     cursor = conn.cursor()
 
@@ -1011,10 +1002,8 @@ def profile():
 
     user = cursor.fetchone()
 
-    print("Fetched user =", user)
 
     cursor.execute("SELECT id, name FROM users")
-    print("All users =", cursor.fetchall())
     if request.method == "POST":
         name = request.form["name"]
         age = request.form["age"]
@@ -1043,12 +1032,6 @@ def profile():
             ))
 
         conn.commit()
-        print(name)
-        print(age)
-        print(height)
-        print(weight)
-        print(goal)
-        print(calorie_goal)
         
     conn.close()
 
@@ -1057,5 +1040,8 @@ def profile():
     user=user
     )
 
+import os
+
 if __name__ == "__main__":
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
