@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container">
+
+    <div class="heading">
+        <h2>🍽️ Calorie Tracker</h2>
+        <p>Track your daily food intake and calorie goal.</p>
+    </div>
+
+    <div class="profile-card">
+
+        <h3>Add Food</h3>
+
+        <form method="POST">
+
+            <div class="form-group">
+                <label>Food Name</label>
+                <input
+                    type="text"
+                    name="food_name"
+                    placeholder="e.g. Chicken Breast"
+                    required>
+            </div>
+
+            <div class="form-group">
+                <label>Calories</label>
+                <input
+                    type="number"
+                    name="calories"
+                    placeholder="e.g. 250"
+                    required>
+            </div>
+
+            <div class="form-group">
+                <label>Meal Type</label>
+
+                <select name="meal_type">
+
+                    <option>Breakfast</option>
+                    <option>Lunch</option>
+                    <option>Dinner</option>
+                    <option>Snack</option>
+
+                </select>
+
+            </div>
+
+            <button
+                class="btn"
+                type="submit"
+                name="action"
+                value="add_food">
+
+                Add Food
+
+            </button>
+
+        </form>
+
+    </div>
+
+
+    <div class="summary-card">
+
+        <h3>Today's Progress</h3>
+
+        <p><strong>{{ total_calories }}</strong> / {{ calorie_goal }} kcal</p>
+
+        <p>Remaining: <strong>{{ calorie_goal - total_calories }}</strong> kcal</p>
+
+    </div>
+
+    <div class="heading" style="margin-top:40px;">
+        <h2>📋 Food History</h2>
+    </div>
+
+    {% if foods %}
+
+        <table class="food-table">
+
+            <tr>
+
+                <th>Food</th>
+                <th>Calories</th>
+                <th>Meal</th>
+                <th>Date</th>
+
+            </tr>
+
+            {% for food, calories, meal, date in foods %}
+
+            <tr>
+
+                <td>{{ food }}</td>
+                <td>{{ calories }}</td>
+                <td>{{ meal }}</td>
+                <td>{{ date }}</td>
+
+            </tr>
+
+            {% endfor %}
+
+        </table>
+
+    {% else %}
+
+        <div class="profile-card">
+
+            <h3>No Food Entries</h3>
+
+            <p>Start logging your meals to see them here.</p>
+
+        </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

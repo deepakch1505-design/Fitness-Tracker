@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Biceps Workouts</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+
+<div class="exercise-list">
+    <h1>Biceps Workouts</h1>
+    {% for exercise in exercises %}
+
+    <a href="{{ exercise.url }}">
+        <h3>{{ exercise.name }}</h3>
+    </a>
+
+
+    {% endfor %}
+    <br><br>
+
+    <a href="{{ url_for('finish_muscle',
+            session_id=session_id,
+            muscle='Biceps') }}">
+        <button>Finish Workout</button>
+    </a>
+</div>
+</body>
+</html>

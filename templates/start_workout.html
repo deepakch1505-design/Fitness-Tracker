@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container">
+
+    <div class="heading">
+        <h2> Choose Your Workout</h2>
+        <p>Select the muscle groups you want to train today.</p>
+    </div>
+
+    <form method="POST">
+
+        <div class="muscle-groups">
+
+            <label class="muscle-card">
+                <input type="checkbox" name="muscles" value="Chest">
+                <h3> Chest</h3>
+                <p>Build strength and size.</p>
+            </label>
+
+            <label class="muscle-card">
+                <input type="checkbox" name="muscles" value="Back">
+                <h3> Back</h3>
+                <p>Improve posture and pulling power.</p>
+            </label>
+
+            <label class="muscle-card">
+                <input type="checkbox" name="muscles" value="Shoulders">
+                <h3> Shoulders</h3>
+                <p>Develop wider shoulders.</p>
+            </label>
+
+            <label class="muscle-card">
+                <input type="checkbox" name="muscles" value="Legs">
+                <h3> Legs</h3>
+                <p>Train quads, hamstrings and calves.</p>
+            </label>
+
+            <label class="muscle-card">
+                <input type="checkbox" name="muscles" value="Triceps">
+                <h3> Triceps</h3>
+                <p>Build bigger arms.</p>
+            </label>
+
+            <label class="muscle-card">
+                <input type="checkbox" name="muscles" value="Biceps">
+                <h3> Biceps</h3>
+                <p>Increase arm strength.</p>
+            </label>
+
+            <label class="muscle-card">
+                <input type="checkbox" name="muscles" value="Forearms">
+                <h3> Forearms</h3>
+                <p>Improve grip strength.</p>
+            </label>
+
+            <label class="muscle-card">
+                <input type="checkbox" name="muscles" value="Abs">
+                <h3> Abs</h3>
+                <p>Build a stronger core.</p>
+            </label>
+
+        </div>
+
+        <div style="text-align:center; margin-top:35px;">
+            <button class="btn" type="submit">
+                🚀 Start Workout
+            </button>
+        </div>
+
+    </form>
+
+</div>
+
+{% endblock %}

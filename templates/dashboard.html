@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container">
+
+    <div class="heading">
+
+        <h2>🏋️ Fitness Dashboard</h2>
+
+        <p>Welcome back, <strong>{{ name }}</strong> 👋</p>
+
+    </div>
+
+    <div class="dashboard-grid">
+
+        <div class="dashboard-card">
+            <h3>🏋️ Workout</h3>
+            <p>Start or continue today's workout.</p>
+
+            <a href="{{ url_for('start_workout') }}" class="btn">
+                Start Workout
+            </a>
+        </div>
+
+        <div class="dashboard-card">
+            <h3>🔥 Calories</h3>
+            <p>Track today's calorie intake.</p>
+
+            <a href="{{ url_for('calorie_tracker') }}" class="btn">
+                Open Tracker
+            </a>
+        </div>
+
+        <div class="dashboard-card">
+            <h3>⚖️ Weight</h3>
+            <p>Update and view your weight progress.</p>
+
+            <a href="{{ url_for('weight_tracker') }}" class="btn">
+                Weight Tracker
+            </a>
+        </div>
+
+        <div class="dashboard-card">
+            <h3>📈 Progress</h3>
+            <p>View your weight graph.</p>
+
+            <a href="{{ url_for('weight_graph') }}" class="btn">
+                View Graph
+            </a>
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

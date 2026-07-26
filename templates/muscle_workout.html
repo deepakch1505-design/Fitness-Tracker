@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container">
+
+    <div class="heading">
+        <h2> {{ muscle }} Workout</h2>
+        <p>Select an exercise to view how to perform it.</p>
+    </div>
+
+    <div class="exercise-list">
+
+        {% for exercise in exercises %}
+
+        <a class="exercise-card" href="{{ exercise.url }}">
+            <h3>{{ exercise.name }}</h3>
+            <p>Click to watch exercise demonstration.</p>
+        </a>
+
+        {% endfor %}
+
+    </div>
+
+    <div style="text-align:center; margin-top:30px;">
+
+        <a href="/finish_muscle?session_id={{ session_id }}&muscle={{ muscle }}">
+            <button class="btn">Finish Workout</button>
+        </a>
+
+    </div>
+
+</div>
+
+{% endblock %}

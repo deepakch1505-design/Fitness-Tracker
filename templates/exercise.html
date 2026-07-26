@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ exercise_name }}</title>
+</head>
+<body>
+
+<h1>{{ exercise_name.replace('-', ' ').title() }}</h1>
+
+<form method="POST"
+      action="{{ url_for(
+            'exercise',
+            exercise_name=exercise_name,
+            session_id=session_id,
+            exercise_id=exercise_id,
+            muscle_group=muscle_group
+      ) }}">
+
+    <h3>Set 1</h3>
+
+    <label>Weight (kg)</label><br>
+    <input type="number" name="weight" placeholder="Enter weight"><br><br>
+
+    <label>Reps</label><br>
+    <input type="number" name="reps" placeholder="Enter reps"><br><br>
+    <button type="submit" name="action" value="add_set">
+        Add Set
+    </button>
+
+    <button type="submit" name="action" value="finish">
+        Finish Exercise
+    </button>
+
+
+</form>
+
+</body>
+</html>

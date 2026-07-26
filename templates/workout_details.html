@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container">
+
+    <div class="heading">
+        <h2>📋 Workout Details</h2>
+        <p>Your completed workout summary.</p>
+    </div>
+
+    {% if exercises %}
+
+        {% set ns = namespace(current_exercise="") %}
+
+        {% for exercise in exercises %}
+
+            {% if exercise[0] != ns.current_exercise %}
+
+                {% if not loop.first %}
+                    </div>
+                {% endif %}
+
+                <div class="workout-card">
+
+                    <h3>{{ exercise[0] }}</h3>
+
+                {% set ns.current_exercise = exercise[0] %}
+
+            {% endif %}
+
+            <div class="set-row">
+
+                <span>Set {{ exercise[1] }}</span>
+
+                <span>{{ exercise[2] }} kg × {{ exercise[3] }} reps</span>
+
+            </div>
+
+            {% if loop.last %}
+                </div>
+            {% endif %}
+
+        {% endfor %}
+
+    {% else %}
+
+        <div class="workout-card">
+
+            <h3>No Workout Found</h3>
+
+            <p>You haven't completed any exercises yet.</p>
+
+        </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

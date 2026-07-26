@@ -1,0 +1,137 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container">
+
+    <div class="heading">
+
+        <h2>📈 Weight Progress</h2>
+
+        <p>Track your weight journey with an interactive graph.</p>
+
+    </div>
+
+    <div class="graph-card">
+
+        <canvas id="weightChart"></canvas>
+
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+
+const labels = [
+    {% for weight, date in weights %}
+        "{{ date }}",
+    {% endfor %}
+];
+
+const data = [
+    {% for weight, date in weights %}
+        {{ weight }},
+    {% endfor %}
+];
+
+const ctx = document.getElementById("weightChart");
+
+
+
+new Chart(ctx, {
+
+    type: "line",
+
+    data: {
+
+        labels: labels,
+
+        datasets: [{
+
+            label: "Weight (kg)",
+
+            data: data,
+
+            borderColor: "#00ff88",
+
+            backgroundColor: "rgba(0,255,136,0.15)",
+
+            borderWidth: 3,
+
+            pointRadius: 5,
+
+            pointBackgroundColor: "#00ff88",
+
+            pointBorderColor: "#00ff88",
+
+            tension: 0.35,
+
+            fill: true
+
+        }]
+
+    },
+
+    options: {
+
+        responsive: true,
+
+        plugins: {
+
+            legend: {
+
+                labels: {
+
+                    color: "white"
+
+                }
+
+            }
+
+        },
+
+        scales: {
+
+            x: {
+
+                ticks: {
+
+                    color: "white"
+
+                },
+
+                grid: {
+
+                    color: "#333"
+
+                }
+
+            },
+
+            y: {
+
+                ticks: {
+
+                    color: "white"
+
+                },
+
+                grid: {
+
+                    color: "#333"
+
+                }
+
+            }
+
+        }
+
+    }
+
+});
+
+</script>
+
+{% endblock %}

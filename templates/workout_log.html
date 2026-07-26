@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container">
+
+    <div class="heading">
+
+        <h2>📖 Workout History</h2>
+
+        <p>View all your completed workout sessions.</p>
+
+    </div>
+
+    {% if sessions %}
+
+        {% for session in sessions %}
+
+        <a class="workout-log-card"
+           href="{{ url_for('workout_details', session_id=session[0]) }}">
+
+            <div>
+
+                <h3> Workout Session #{{ session[0] }}</h3>
+
+                <p>{{ session[1] }}</p>
+
+                <small>{{ session[2] }}</small>
+
+            </div>
+
+            <div class="view-btn">
+
+                ➜ View Details
+
+            </div>
+
+        </a>
+
+        {% endfor %}
+
+    {% else %}
+
+        <div class="profile-card">
+
+            <h3>No Workouts Yet</h3>
+
+            <p>Start your first workout to see your history here.</p>
+
+        </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

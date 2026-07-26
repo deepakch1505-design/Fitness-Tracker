@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>Fitness Tracker</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+{% if session.get("user_id") %}
+
+<nav>
+
+    <h2>🏋 Fitness Tracker</h2>
+
+    <a href="{{ url_for('dashboard') }}">Dashboard</a>
+
+    <a href="{{ url_for('workout_log') }}">Workouts</a>
+
+    <a href="{{ url_for('calorie_tracker') }}">Calories</a>
+
+    <a href="{{ url_for('weight_graph') }}">Weight</a>
+
+    <a href="{{ url_for('profile') }}">Profile</a>
+
+    <a href="{{ url_for('logout') }}">Logout</a>
+
+</nav>
+
+<div class="nav-divider"></div>
+
+{% endif %}
+
+{% block content %}
+
+{% endblock %}
+
+</body>
+</html>

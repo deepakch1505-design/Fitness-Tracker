@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container">
+
+    <div class="heading">
+
+        <h2>Select Muscle Group</h2>
+
+        <p>Choose the muscle you want to train today.</p>
+
+    </div>
+
+    <div class="muscle-groups">
+
+        <a class="muscle-card"
+           href="{{ url_for('chest', session_id=session_id) }}">
+
+            <h3> Chest</h3>
+            <p>Build strength and size.</p>
+
+        </a>
+
+        <a class="muscle-card" href="#">
+
+            <h3> Back</h3>
+            <p>Improve posture and pulling power.</p>
+
+        </a>
+
+        <a class="muscle-card"
+           href="{{ url_for('shoulders', session_id=session_id) }}">
+
+            <h3> Shoulders</h3>
+            <p>Develop wider shoulders.</p>
+
+        </a>
+
+        <a class="muscle-card" href="#">
+
+            <h3> Legs</h3>
+            <p>Train quads, hamstrings and calves.</p>
+
+        </a>
+
+        <a class="muscle-card" href="#">
+
+            <h3> Biceps</h3>
+            <p>Increase arm size and strength.</p>
+
+        </a>
+
+        <a class="muscle-card"
+           href="{{ url_for('triceps', session_id=session_id) }}">
+
+            <h3> Triceps</h3>
+            <p>Build bigger and stronger arms.</p>
+
+        </a>
+
+    </div>
+
+</div>
+
+{% endblock %}
