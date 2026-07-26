@@ -30,7 +30,15 @@
             and achieve your goals with one platform.
         </p>
 
-        <button>Start Your Journey</button>
+        {% if session.get("user_id") %}
+            <a href="{{ url_for('dashboard') }}">
+                <button>Go to Dashboard</button>
+            </a>
+            {% else %}
+            <a href="{{ url_for('login') }}">
+                <button>Start Your Journey</button>
+            </a>
+        {% endif %}
 
     </section>
     <section class="features">
