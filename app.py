@@ -809,7 +809,6 @@ def start_workout():
     if request.method == "POST":
 
         selected_muscles = request.form.getlist("muscles")
-        print(selected_muscles)
 
         workout_name = " + ".join(selected_muscles)
 
@@ -822,7 +821,7 @@ def start_workout():
         INSERT INTO workout_sessions
         (user_id, session_name, workout_date)
         VALUES (?, ?, ?)
-        """, (1, workout_name, today))
+        """, (session["user_id"], workout_name, today))
 
         
 
