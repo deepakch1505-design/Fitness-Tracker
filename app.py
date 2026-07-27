@@ -1100,6 +1100,10 @@ def render_users():
 
     return html
 
+@app.route("/session_test")
+def session_test():
+    return f"Current session user_id = {session.get('user_id')}"
+
 import os
 
 if __name__ == "__main__":
