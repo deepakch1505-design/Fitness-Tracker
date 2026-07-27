@@ -28,27 +28,20 @@ def login():
 
         user = cursor.fetchone()
 
-        print(user)
 
         conn.close()
 
         if user:
-
             session["user_id"] = user[0]
-
-
-            return redirect(url_for("dashboard")
-            )
+            return redirect(url_for("dashboard"))
         else:
             return render_template(
                 "login.html",
                 error="Invalid email or password. Please try again.",
                 email=email
-            
             )
 
     return render_template("login.html")
-
 @app.route("/register", methods=["GET", "POST"])
 def register():
 
