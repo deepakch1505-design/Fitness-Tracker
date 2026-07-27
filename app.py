@@ -1068,6 +1068,37 @@ def profile():
     "profile.html",
     user=user
     )
+@app.route("/render_users")
+def render_users():
+
+    conn = sqlite3.connect("fitness.db")
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        SELECT id, name, email, age, height, weight, goal
+        FROM users
+    """)
+
+    users = cursor.fetchall()
+
+    conn.close()
+
+    html = "<h2>Registered Users</h2><hr>"
+
+    for user in users:
+        html += f"""
+        <p>
+        ID: {user[0]}<br>
+        Name: {user[1]}<br>
+        Email: {user[2]}<br>
+        Age: {user[3]}<br>
+        Height: {user[4]}<br>
+        Weight: {user[5]}<br>
+        Goal: {user[6]}
+        </p><hr>
+        """
+
+    return html
 
 import os
 
