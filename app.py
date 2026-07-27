@@ -40,7 +40,12 @@ def login():
             return redirect(url_for("dashboard")
             )
         else:
-            return "Invalid Email or Password"
+            return render_template(
+                "login.html",
+                error="Invalid email or password. Please try again.",
+                email=email
+            
+            )
 
     return render_template("login.html")
 
@@ -69,7 +74,7 @@ def register():
         conn.commit()
         conn.close()
 
-        return "User registered successfully!"
+        return redirect(url_for("login"))
 
     return render_template("register.html")
 @app.route("/logout")
@@ -682,14 +687,18 @@ def exercise(exercise_name):
 @app.route("/workout_log")
 def workout_log():
 
+    if "user_id" not in session:
+        return redirect(url_for("login"))
+
     conn = sqlite3.connect("fitness.db")
     cursor = conn.cursor()
 
     cursor.execute("""
-    SELECT id, session_name, workout_date
-    FROM workout_sessions
-    ORDER BY workout_date DESC
-    """)
+        SELECT id, session_name, workout_date
+        FROM workout_sessions
+        WHERE user_id = ?
+        ORDER BY workout_date DESC
+    """, (session["user_id"],))
 
     sessions = cursor.fetchall()
 
@@ -759,20 +768,37 @@ def weight_tracker():
 @app.route("/workout/<int:session_id>")
 def workout_details(session_id):
 
+    if "user_id" not in session:
+        return redirect(url_for("login"))
+
     conn = sqlite3.connect("fitness.db")
     cursor = conn.cursor()
 
+    # Verify that this workout session belongs to the logged-in user
     cursor.execute("""
-    SELECT
-        workout_exercises.exercise_name,
-        workout_sets.set_number,
-        workout_sets.weight,
-        workout_sets.reps
-    FROM workout_exercises
-    JOIN workout_sets
-    ON workout_exercises.id = workout_sets.exercise_id
-    WHERE workout_exercises.session_id = ?
-    ORDER BY workout_exercises.id, workout_sets.set_number
+        SELECT id
+        FROM workout_sessions
+        WHERE id = ? AND user_id = ?
+    """, (session_id, session["user_id"]))
+
+    session_exists = cursor.fetchone()
+
+    if not session_exists:
+        conn.close()
+        return redirect(url_for("workout_log"))
+
+    # Fetch exercises only after ownership is verified
+    cursor.execute("""
+        SELECT
+            workout_exercises.exercise_name,
+            workout_sets.set_number,
+            workout_sets.weight,
+            workout_sets.reps
+        FROM workout_exercises
+        JOIN workout_sets
+        ON workout_exercises.id = workout_sets.exercise_id
+        WHERE workout_exercises.session_id = ?
+        ORDER BY workout_exercises.id, workout_sets.set_number
     """, (session_id,))
 
     exercises = cursor.fetchall()
@@ -841,6 +867,9 @@ def start_workout():
 @app.route("/weight_graph")
 def weight_graph():
 
+    if "user_id" not in session:
+        return redirect(url_for("login"))
+
     conn = sqlite3.connect("fitness.db")
     cursor = conn.cursor()
 
@@ -849,7 +878,7 @@ def weight_graph():
         FROM weight_logs
         WHERE user_id = ?
         ORDER BY log_date
-    """, (1,))
+    """, (session["user_id"],))
 
     weights = cursor.fetchall()
 

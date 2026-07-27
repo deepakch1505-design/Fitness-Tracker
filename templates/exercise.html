@@ -1,38 +1,64 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>{{ exercise_name }}</title>
-</head>
-<body>
+{% extends "base.html" %}
 
-<h1>{{ exercise_name.replace('-', ' ').title() }}</h1>
+{% block content %}
 
-<form method="POST"
-      action="{{ url_for(
-            'exercise',
-            exercise_name=exercise_name,
-            session_id=session_id,
-            exercise_id=exercise_id,
-            muscle_group=muscle_group
-      ) }}">
+<div class="container">
 
-    <h3>Set 1</h3>
+    <div class="heading">
+        <h2>{{ exercise_name.replace('-', ' ').title() }}</h2>
+        <p>Enter the weight and reps for each set.</p>
+    </div>
 
-    <label>Weight (kg)</label><br>
-    <input type="number" name="weight" placeholder="Enter weight"><br><br>
+    <div class="card">
 
-    <label>Reps</label><br>
-    <input type="number" name="reps" placeholder="Enter reps"><br><br>
-    <button type="submit" name="action" value="add_set">
-        Add Set
-    </button>
+        <form method="POST"
+              action="{{ url_for(
+                    'exercise',
+                    exercise_name=exercise_name,
+                    session_id=session_id,
+                    exercise_id=exercise_id,
+                    muscle_group=muscle_group
+              ) }}">
 
-    <button type="submit" name="action" value="finish">
-        Finish Exercise
-    </button>
+            <label>Weight (kg)</label>
 
+            <input
+                type="number"
+                name="weight"
+                placeholder="Enter weight"
+                required
+            >
 
-</form>
+            <label>Reps</label>
 
-</body>
-</html>
+            <input
+                type="number"
+                name="reps"
+                placeholder="Enter reps"
+                required
+            >
+
+            <div class="button-group">
+
+                <button
+                    type="submit"
+                    name="action"
+                    value="add_set">
+                    Add Set
+                </button>
+
+                <button
+                    type="submit"
+                    name="action"
+                    value="finish">
+                    Finish Exercise
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+{% endblock %}
